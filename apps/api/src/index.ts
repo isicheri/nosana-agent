@@ -1,0 +1,19 @@
+import express,{type Request,type Response} from "express";
+import cors from "cors";
+
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Routes
+app.get("/", (_req:Request, res:Response) => {
+  res.send("API is running 🚀");
+});
+
+// Start server
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`API listening on http://localhost:${PORT}`);
+});
