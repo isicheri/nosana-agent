@@ -1,0 +1,26 @@
+version: 1.0
+
+jobs:
+  - name: mcp-server
+    docker:
+      file: ./apps/mcp-server/Dockerfile
+      context: ./apps/mcp-server
+    run:
+      command: ["node", "dist/main.js"]
+    health:
+      http: "http://localhost:3001/health"
+    resources:
+      cpu: "1"
+      memory: "512Mi"
+
+  - name: api
+    docker:
+      file: ./apps/api/Dockerfile
+      context: ./apps/api
+    run:
+      command: ["node", "dist/main.js"]
+    health:
+      http: "http://localhost:3000/health"
+    resources:
+      cpu: "1"
+      memory: "512Mi"

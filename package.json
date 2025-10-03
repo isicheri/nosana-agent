@@ -1,5 +1,5 @@
 {
-  "name": "nosana-agent-BE",
+  "name": "nosana-agent",
   "private": true,
   "version": "0.1.0",
   "description": "AI-powered study assistant backend built with MCP + Mastra for Nosana Builders Challenge 3.",
@@ -8,7 +8,7 @@
     "dev:api": "pnpm --filter api dev",
     "dev:mcp": "pnpm --filter mcp-server dev",
     "dev:agent": "pnpm --filter agent dev",
-    "dev:frontend": "pnpm --filter frontend dev",
+    "dev:web": "pnpm --filter web dev",
     "dev": "pnpm -r --parallel dev",
     "build": "pnpm -r build",
     "lint": "eslint . --ext .ts,.tsx --fix",

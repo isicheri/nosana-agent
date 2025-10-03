@@ -12,6 +12,12 @@ app.get("/", (_req:Request, res:Response) => {
   res.send("API is running 🚀");
 });
 
+
+app.get('/health', (_req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
+
 // Start server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {

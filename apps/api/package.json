@@ -4,7 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
- "dev": "node --loader ts-node/esm src/index.ts",
+    "dev": "node --loader ts-node/esm src/main.ts",
+     "lint": "eslint . --ext .ts",
+  "format": "prettier --write .",
+  "start": "node dist/main.js",
+  "prepare": "pnpm run build",
     "build": "tsc"
   },
   "dependencies": {
@@ -13,8 +17,15 @@
     "express": "^4.19.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.36.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
-    "typescript": "^5.6.0"
+    "eslint": "^9.36.0",
+    "globals": "^16.4.0",
+    "jiti": "^2.6.1",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
+    "typescript": "^5.6.0",
+    "typescript-eslint": "^8.45.0"
   }
 }
