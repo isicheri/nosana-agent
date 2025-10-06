@@ -58,7 +58,7 @@ Deployment:
 ### 3.3 Backend API (your area of work)
 - Lightweight Node.js server (Express or NestJS). Responsibilities:
   - Authentication & lightweight rate-limit (for challenge, basic API key or JWT).
-  - File upload endpoint (accept PDF, extract text via `pdf-parse` or similar, store resource in MCP).
+  - File upload endpoint (accept PDF, extract text via `pdf2json` or similar, store resource in MCP).
   - Endpoints that invoke Mastra flows:
     - `POST /api/upload` — upload and start summarization.
     - `POST /api/ask` — submit question, returns answer and updated session state.

@@ -1,1 +1,1 @@
-{"version":3,"file":"extractpdftotext.d.ts","sourceRoot":"","sources":["../../src/lib/extractpdftotext.ts"],"names":[],"mappings":"yBAEgB,UAAS,MAAM;AAA/B,wBAEC"}
+{"version":3,"file":"extractpdftotext.d.ts","sourceRoot":"","sources":["../../src/lib/extractpdftotext.ts"],"names":[],"mappings":"AAIA,wBAAsB,kBAAkB,CAAC,SAAS,EAAE,MAAM,GAAG,OAAO,CAAC;IAAE,aAAa,EAAE,MAAM,CAAC;IAAC,UAAU,EAAE,MAAM,CAAA;CAAE,CAAC,CA6DlH"}

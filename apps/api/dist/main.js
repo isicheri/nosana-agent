@@ -2,6 +2,7 @@ import express, {} from 'express';
 import { prisma } from "@nosana-agent/db";
 import cors from 'cors';
 import indexRouter from './routes';
+import {} from "ws";
 const app = express();
 // Middleware
 app.use(cors());

@@ -1,13 +1,21 @@
-
+import { PrismaClient } from "@nosana-agent/db"
+import { ResourceService } from "../resources/resources.service";
 
 
 export class UploadService  {
 
-    constructor() {}
+    private db: PrismaClient;
 
+    constructor() {this.db = new PrismaClient()}
 
+    static default() : UploadService {
+        return new UploadService()
+    }
     
-    upload() {}
+    upload() {
+        const resourceService:ResourceService = ResourceService.initializer(this.db);
+        
+    }
 
 
 }

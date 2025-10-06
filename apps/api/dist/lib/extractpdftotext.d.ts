@@ -1,3 +1,5 @@
-declare const _default: (filePath: string) => void;
-export default _default;
+export declare function extractTextFromPDF(pdfBuffer: Buffer): Promise<{
+    extractedText: string;
+    pagesCount: number;
+}>;
 //# sourceMappingURL=extractpdftotext.d.ts.map

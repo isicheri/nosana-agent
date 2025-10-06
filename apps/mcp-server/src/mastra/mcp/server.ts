@@ -23,6 +23,7 @@ const server = new MCPServer({
     // flashcards: flashcardsTool,
   },
   resources: resourceHandlers, 
+  agents: {}
 });
 
 // --- Start server based on transport type ---
