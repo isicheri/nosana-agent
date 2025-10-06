@@ -7,9 +7,13 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
+    "baseUrl": ".",
+    "paths": {
+      "@nosana-agent/db": ["packages/db/src"]
+    },
     "module": "esnext",
     "target": "es2020",
-    "ignoreDeprecations": "6.0",
+    "ignoreDeprecations": "5.0",
     "moduleResolution": "node",
     "types": [],
     "esModuleInterop": true,
@@ -40,7 +44,6 @@
     "strict": true,
     "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
-    "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,

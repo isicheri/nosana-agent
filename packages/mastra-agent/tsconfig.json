@@ -4,19 +4,15 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".", // CHANGE THIS FROM "*" TO "."
-    "target": "ES2022",
-    "module": "es2022",
-    "moduleResolution": "bundler",
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "node",
     "outDir": "dist",
     "esModuleInterop": true,
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
-    "paths": {
-      "@nosana-agent/db": ["../../packages/db/src"]
-    }
   },
-  "include": ["src/**/*"],
-  "references": [{ "path": "../../packages/db" }]
+  "include": ["src"],
 }
