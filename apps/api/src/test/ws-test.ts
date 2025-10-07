@@ -4,12 +4,16 @@ import  {WebSocket} from "ws";
 const sessionId = '9f1bfb8f-9de8-4383-a481-dd9434bc6e48'; 
 const clientId = 'test-client-1';
 
+let retryCount = 0;
+
 function connect() {
 
   const socket = new WebSocket('ws://localhost:4000/ws');
 
 socket.on('open', () => {
   console.log('✅ WebSocket connection opened');
+
+  retryCount = 0;
 
   // Send init message
   socket.send(JSON.stringify({
@@ -32,9 +36,13 @@ socket.on('error', (err:any) => {
   console.error('❌ WebSocket error:', err);
 });
 
+
+
 socket.on('close', () => {
-  console.log('🔌 WebSocket connection closed');
-  setTimeout(connect,3000)
+   retryCount++;
+    const delay = Math.min(10000, 1000 * retryCount); // Cap at 10s
+    console.warn(`⚠️ Disconnected. Reconnecting in ${delay / 1000}s...`);
+    setTimeout(connect, delay);
 });
 
 }
