@@ -1,8 +1,8 @@
 {
   "servers": {
     "mastra": {
-      "command": "cmd",
-      "args": ["/c", "npx", "-y", "@mastra/mcp-docs-server"],
+      "command": "npx",
+      "args": ["ts-node","src/index.ts"],
       "type": "stdio"
     }
   }

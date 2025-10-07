@@ -1,18 +1,16 @@
-// C:\Users\PC\Desktop\nosana-agent\apps\api\tsconfig.json
+
 
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".", // CHANGE THIS FROM "*" TO "."
+    "outDir": "dist",
+    "rootDir": "src",
+    "composite": true,
+     "baseUrl": ".",
     "target": "ES2020",
     "module": "ESNext",
     "moduleResolution": "node",
-    "outDir": "dist",
-    "esModuleInterop": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
   },
-  "include": ["src"],
+  "include": ["src/**/*"],
+  "exclude": ["dist","node_modules"]
 }

@@ -2,7 +2,7 @@ import { createTool } from "@mastra/core/tools";
 import {z} from "zod"
 
 export  const summarizeResourceTool = createTool({
-  id: 'summarize-resourse',
+  id: 'summarize-resource',
   description: 'Generates a structured summary (outline, TL;DR, sections) from a text resource.',
   inputSchema: z.object({
     resourceId: z.string().describe('The ID of the resource to summarize.'),
@@ -27,34 +27,20 @@ export  const summarizeResourceTool = createTool({
     });
  if (!resource || !resource.content) {
     throw new Error('❌ Resource not found or has no content.');
-  }
-
-  
+  }  
     const agent = mastra.getAgent('textSummarizeAgent');
 
  if (!agent) {
       throw new Error('Summarization agent "textSummarizeAgent" not found.');
     }
+  
 
-    const prompt = `
-Please summarize the following text.
-
-- First, generate a TL;DR (max 3 sentences).
-- Then provide a high-level outline using bullet points.
-- Finally, break it into 2–3 detailed sections for study.
-
-Format the output as JSON like:
-{
-  "tl_dr": "...",
-  "outline": ["point 1", "point 2", "..."],
-  "sections": ["Section 1 text...", "Section 2 text..."]
-}
-
-Text:
-${resource.content.substring(0, 4000)}
-`;
-
-const response = await agent.generate(prompt);
+    const result = await agent.generate(([
+      {
+        role: "user",
+        content: `Summarize this study text:\n${resource.content.substring(0,4000)}`
+      }
+    ]))
 
     let parsed: {
       tl_dr: string;
@@ -62,8 +48,9 @@ const response = await agent.generate(prompt);
       sections: string[];
     };
 
+
     try {
-      parsed = JSON.parse(response.text);
+      parsed = JSON.parse(result.text);
     } catch (err) {
       throw new Error('Failed to parse summary JSON from agent response.');
     }

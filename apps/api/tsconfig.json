@@ -13,9 +13,10 @@
     "forceConsistentCasingInFileNames": true,
     "verbatimModuleSyntax": false,
     "paths": {
-      "@nosana-agent/db": ["../../packages/db/src"]
+      "@nosana-agent/db": ["../../packages/db/src"],
+      "@nosana-agent/mastra-agent": ["../../packages/mastra-agent/src"]
     }
   },
   "include": ["src"],
-  "references": [{ "path": "../../packages/db" }]
+  "references": [{ "path": "../../packages/db" },{"path": "../../packages/mastra-agent"}]
 }

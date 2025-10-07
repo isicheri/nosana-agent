@@ -1,10 +1,13 @@
-// study-assistant-mcp-server.ts
 
 import { MCPServer } from "@mastra/mcp";
-import resourceHandlers from "./resource"; // your PDF/text parsers
+import resourceHandlers from "./resource"; 
 import {summarizeResourceTool} from "../tools/index"; 
 import { readFileSync } from "fs";
 import path from "node:path";
+import { textSummarizeAgent } from "../agents/textSummarizeAgent";
+import dotenv from "dotenv";
+
+dotenv.config({path: "."})
 
 // Read version from package.json
 const version = JSON.parse(
@@ -22,8 +25,10 @@ const server = new MCPServer({
     // qa: qaTool,
     // flashcards: flashcardsTool,
   },
-  resources: resourceHandlers, 
-  agents: {}
+  resources: resourceHandlers,
+  agents: {
+    textSummarizeAgent
+  }
 });
 
 // --- Start server based on transport type ---
