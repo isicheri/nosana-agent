@@ -11,7 +11,7 @@ dotenv.config({path: "*"})
 
 const app = express();
 const server = http.createServer(app);
-const wss = new WebSocketServer({server})
+const wss = new WebSocketServer({server,path: "/ws"})
 
 setupWebsocket(wss);
 
@@ -33,6 +33,6 @@ app.use("/api/v1",indexRouter);
 
 // Start server
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`API listening on http://localhost:${PORT}`);
 });

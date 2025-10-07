@@ -1,4 +1,4 @@
-import { PrismaClient } from "@nosana-agent/db";
+import { PrismaClient, type Resource } from "@nosana-agent/db";
 
 
 
@@ -13,13 +13,20 @@ export class ResourceService {
         return new ResourceService(db);
     }
 
-    async create(filename:string,content: string): Promise<void> {
+    async create(filename:string,content: string,chunks: string[],sessionId: string): Promise<Resource> {
      const resource = await this.db.resource.create({
         data: {
             filename,
-            content
+            content,
+            chunks,   
+            sessions: {
+                connect: {
+                    id: sessionId
+                }
+            }
         }
-     })
+     });
+     return resource;
     }
 
 }

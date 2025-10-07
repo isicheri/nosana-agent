@@ -1,18 +1,17 @@
-// C:\Users\PC\Desktop\nosana-agent\apps\api\tsconfig.json
-
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".", // CHANGE THIS FROM "*" TO "."
+    "baseUrl": ".", // This is good
     "target": "ES2020",
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "CommonJS",              // ✅ CommonJS mode!
+    "moduleResolution": "node",        // ✅ Proper resolution for CommonJS
     "outDir": "dist",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
+    "verbatimModuleSyntax": false,
     "paths": {
       "@nosana-agent/db": ["../../packages/db/src"]
     }
