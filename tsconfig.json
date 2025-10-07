@@ -11,7 +11,7 @@
     "paths": {
       "@nosana-agent/db": ["packages/db/src"]
     },
-    "module": "esnext",
+    "module": "commonjs",
     "target": "es2020",
     "ignoreDeprecations": "5.0",
     "moduleResolution": "node",
