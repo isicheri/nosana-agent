@@ -1,0 +1,6 @@
+import { Mastra } from "@mastra/core";
+import { PinoLogger } from "@mastra/loggers";
+export declare const mastra: Mastra<Record<string, import("@mastra/core/agent").Agent<any, import("@mastra/core/agent").ToolsInput, Record<string, import("@mastra/core").Metric>>>, Record<string, import("@mastra/core/dist/workflows/legacy").LegacyWorkflow<import("@mastra/core/dist/workflows/legacy").LegacyStep<string, any, any, import("@mastra/core/dist/workflows/legacy").StepExecutionContext<any, import("@mastra/core/dist/workflows/legacy").WorkflowContext<any, import("@mastra/core/dist/workflows/legacy").LegacyStep<string, any, any, any>[], Record<string, any>>>>[], string, any, any>>, Record<string, import("@mastra/core/workflows").Workflow<any, any, any, any, any, any>>, Record<string, import("@mastra/core/dist/vector").MastraVector<import("@mastra/core/dist/vector/filter").VectorFilter>>, Record<string, import("@mastra/core/dist/tts").MastraTTS>, PinoLogger, {
+    studyAssistant: import("@mastra/mcp").MCPServer;
+}, Record<string, import("@mastra/core/dist/scores").MastraScorer<any, any, any, any>>>;
+//# sourceMappingURL=index.d.ts.map

@@ -1,10 +1,10 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".", // This is good
+    "baseUrl": ".",
     "target": "ES2020",
-    "module": "CommonJS",              // ✅ CommonJS mode!
-    "moduleResolution": "node",        // ✅ Proper resolution for CommonJS
+    "module": "CommonJS",
+    "moduleResolution": "node",
     "outDir": "dist",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -13,10 +13,13 @@
     "forceConsistentCasingInFileNames": true,
     "verbatimModuleSyntax": false,
     "paths": {
-      "@nosana-agent/db": ["../../packages/db/src"],
-      "@nosana-agent/mastra-agent": ["../../packages/mastra-agent/src"]
+      "@nosana-agent/db": ["../../packages/db"],
+      "@nosana-agent/mastra-agent": ["../../packages/mastra-agent"]
     }
   },
   "include": ["src"],
-  "references": [{ "path": "../../packages/db" },{"path": "../../packages/mastra-agent"}]
+  "references": [
+    { "path": "../../packages/db" },
+    { "path": "../../packages/mastra-agent" }
+  ]
 }

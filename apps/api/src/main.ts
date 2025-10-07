@@ -6,15 +6,13 @@ import indexRouter from './routes';
 import {WebSocketServer} from "ws";
 import dotenv from "dotenv";
 import { setupWebsocket } from './ws/webSocket';
-import {createStudyAssistantClient} from "@nosana-agent/mastra-agent";
+
 
 dotenv.config({path: "*"})
 
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocketServer({server,path: "/ws"})
-
-const client = createStudyAssistantClient();
 
 
 setupWebsocket(wss);

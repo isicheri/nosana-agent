@@ -2,8 +2,9 @@
   "name": "@nosana-agent/mastra-agent",
   "version": "1.0.0",
   "description": "Orchestrates the Mastra Agent, handles reasoning, and calls the MCP Tool server.",
+  "type": "commonjs",
   "main": "dist/index.js",
-  "types": "src/index.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc"
   },

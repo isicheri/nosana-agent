@@ -6,11 +6,14 @@
     "outDir": "dist",
     "rootDir": "src",
     "composite": true,
-     "baseUrl": ".",
+    "declaration": true,                   // ← this is REQUIRED
+    "declarationMap": true,                // optional but useful
+    "emitDeclarationOnly": false,
     "target": "ES2020",
-    "module": "ESNext",
+    "module": "CommonJS",
     "moduleResolution": "node",
+    "verbatimModuleSyntax": false
   },
   "include": ["src/**/*"],
-  "exclude": ["dist","node_modules"]
+  "exclude": ["dist", "node_modules"]
 }
