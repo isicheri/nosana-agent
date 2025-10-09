@@ -1,7 +1,7 @@
 import  {WebSocket} from "ws";
 
 // Replace with a real sessionId from your DB
-const sessionId = '9f1bfb8f-9de8-4383-a481-dd9434bc6e48'; 
+const sessionId = '3c8c42eb-5821-4a10-b722-f26532068a76'; 
 const clientId = 'test-client-1';
 
 let retryCount = 0;
@@ -46,3 +46,6 @@ socket.on('close', () => {
 });
 
 }
+
+
+connect();

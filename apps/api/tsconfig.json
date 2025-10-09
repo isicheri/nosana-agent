@@ -14,12 +14,10 @@
     "verbatimModuleSyntax": false,
     "paths": {
       "@nosana-agent/db": ["../../packages/db"],
-      "@nosana-agent/mastra-agent": ["../../packages/mastra-agent"]
     }
   },
   "include": ["src"],
   "references": [
     { "path": "../../packages/db" },
-    { "path": "../../packages/mastra-agent" }
   ]
 }

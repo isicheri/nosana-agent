@@ -27,7 +27,9 @@ app.get('/', (_req: Request, res: Response) => {
 });
 
 app.get('/health', async (_req:Request, res:Response) => {
-  const sessions = await prisma.session.findMany();
+  const sessions = await prisma.session.findMany({
+    take: 10
+  });
   res.status(200).json({ status: 'ok' ,_sessions: sessions});
 });
 

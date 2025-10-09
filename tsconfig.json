@@ -10,7 +10,6 @@
     "baseUrl": ".",
     "paths": {
       "@nosana-agent/db": ["packages/db/src"],
-      "@nosana-agent/mastra-agent": ["packages/mastra-agent/src"]
     },
     "module": "commonjs",
     "target": "es2020",

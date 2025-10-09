@@ -1,9 +1,0 @@
-{
-  "servers": {
-    "mastra": {
-      "command": "npx",
-      "args": ["ts-node","src/index.ts"],
-      "type": "stdio"
-    }
-  }
-}
