@@ -1,131 +1,100 @@
 import { createTool } from "@mastra/core";
 import { z } from "zod";
-import { PrismaClient } from "@nosana-agent/db";
+import { textSummarizeAgent } from "../agents/textSummarizeAgent";
+// import parser from 'pdf-parse';
+// import axios from "axios"
 
-const prisma = new PrismaClient();
+//v2-feature
+// Map of styles to prompt flavor
+// async function getSummaryPrompt(pdfurl: string | undefined, content: string | undefined, style: string) {
+//   let finalText = content;
 
-async function getById(resourceId: string) {
-  return await prisma.resource.findUnique({ where: { id: resourceId } });
-}
+//   if (!finalText && pdfurl) {
+//     const pdfContent = await extractTextFromPdf(pdfurl);
+//     finalText = pdfContent?.text || "";
+//   }
 
-// Helper function to clean JSON string from agent response
-function cleanJsonResponse(text: string): string {
-  // Remove markdown code blocks
-  let cleaned = text.replace(/```json\s*/gi, '').replace(/```\s*/g, '');
-  
-  // Remove leading/trailing whitespace
-  cleaned = cleaned.trim();
-  
-  // If there are multiple JSON objects, take the first one
-  const firstBrace = cleaned.indexOf('{');
-  const lastBrace = cleaned.lastIndexOf('}');
-  if (firstBrace !== -1 && lastBrace !== -1) {
-    cleaned = cleaned.substring(firstBrace, lastBrace + 1);
+//   finalText = cleanText(finalText || "");
+
+//   switch (style) {
+//     case "detailed":
+//       return `Give a detailed academic-style summary with explanations and examples:\n\n${finalText}`;
+//     case "exam_prep":
+//       return `Summarize this as if preparing exam revision notes — focus on key facts and definitions:\n\n${finalText}`;
+//     case "beginner_friendly":
+//       return `Explain this in simple, beginner-friendly language, like teaching a student:\n\n${finalText}`;
+//     case "bullet_points":
+//       return `Summarize this text as clean bullet points, no intro or commentary:\n\n${finalText}`;
+//     default:
+//       return `Summarize this text concisely and clearly:\n\n${finalText}`;
+//   }
+// }
+// async function extractTextFromPdf(pdfUrl: string | undefined) {
+//   if (!pdfUrl) {
+//     console.log("No PDF URL provided!");
+//     return;
+//   }
+
+//   const response = await axios.get(pdfUrl, { responseType: "arraybuffer" });
+//   const pdfData = await parser(response.data);
+
+//   const cleanText = pdfData.text.replace(/\s+/g, " ").trim();
+//   return { text: cleanText };
+// }
+
+async function getSummaryPrompt(content: string, style: string) {
+  const finalText = cleanText(content);
+
+  switch (style) {
+    case "detailed":
+      return `Give a detailed academic-style summary with explanations and examples:\n\n${finalText}`;
+    case "exam_prep":
+      return `Summarize this as if preparing exam revision notes — focus on key facts and definitions:\n\n${finalText}`;
+    case "beginner_friendly":
+      return `Explain this in simple, beginner-friendly language, like teaching a student:\n\n${finalText}`;
+    case "bullet_points":
+      return `Summarize this text as clean bullet points, no intro or commentary:\n\n${finalText}`;
+    default:
+      return `Summarize this text concisely and clearly:\n\n${finalText}`;
   }
-  
-  return cleaned;
+}
+function cleanText(raw: string): string {
+  return raw
+    .replace(/[^\x00-\x7F]/g, "") 
+    .replace(/\s+/g, " ")    
+    .trim();
 }
 
 export const summarizeContentTool = createTool({
   id: "summarize-content-tool",
-  description: "Generates a structured summary (outline, TL;DR, sections) from a database resource schema content field.",
+  description: "Summarizes any uploaded or pasted text with flexible styles.",
   inputSchema: z.object({
-    resourceId: z.string().describe('The ID of the resource to summarize.'),
+    content: z.string().describe("The study text or content to summarize."),
+    style: z.enum(["concise", "detailed", "exam_prep", "beginner_friendly", "bullet_points"])
+            .default("detailed")
+            .describe("The desired style of summary."),
   }),
   outputSchema: z.object({
-    summaryId: z.string(),
-    outline: z.array(z.string()),
-    tl_dr: z.string(),
-    sections: z.array(z.string()),
+    summary: z.string().max(3000),
+    style: z.string(),
   }),
   execute: async ({ context }) => {
-    const { resourceId } = context;
-
-    console.log(`📄 Summarize Tool: Fetching resource ${resourceId}...`);
-
-    const resource = await getById(resourceId);
-    if (!resource || !resource.content) {
-      throw new Error('❌ Resource not found or has no content.');
-    }
-
-    // Dynamic content length handling
-    const maxLength = 4000;
-    const content = resource.content.length > maxLength
-      ? resource.content.substring(0, maxLength) + "..."
-      : resource.content;
-
-    // Import the agent dynamically to avoid circular dependencies
-    const { textSummarizeAgent } = await import("../agents/textSummarizeAgent");
-
-    const result = await textSummarizeAgent.generate([
-      {
-        role: "user",
-        content: `Summarize this study text:\n${content}`
-      }
-    ]);
-
-    console.log('🤖 Agent Response:', result.text);
-
-    // Clean the response
-    const cleanedText = cleanJsonResponse(result.text);
-    console.log('🔍 Cleaned JSON Text:', cleanedText);
-
-    let parsed: {
-      tl_dr: string;
-      outline: string[];
-      sections: string[];
-    };
-
-    try {
-      parsed = JSON.parse(cleanedText);
-    } catch (err) {
-      console.error('JSON Parse Error:', err);
-      console.error('Agent Response:', result.text);
-      console.error('Attempted to parse:', cleanedText);
-      
-      // Fallback: Try to extract information manually
-      throw new Error(
-        `Failed to parse summary JSON: ${err instanceof Error ? err.message : 'Unknown error'}. ` +
-        `Agent returned invalid JSON. This usually means the AI model needs clearer instructions.`
-      );
-    }
-
-    // Validate the parsed structure
-    if (!parsed.tl_dr || !Array.isArray(parsed.outline) || !Array.isArray(parsed.sections)) {
-      console.error('Invalid structure:', parsed);
-      throw new Error(
-        'Invalid summary structure returned by agent - missing required fields. ' +
-        `Got: ${JSON.stringify(Object.keys(parsed))}`
-      );
-    }
-
-    // Ensure arrays contain strings
-    if (parsed.outline.some(item => typeof item !== 'string')) {
-      console.error('Invalid outline items:', parsed.outline);
-      throw new Error('Outline must be an array of strings');
-    }
-
-    if (parsed.sections.some(item => typeof item !== 'string')) {
-      console.error('Invalid section items:', parsed.sections);
-      throw new Error('Sections must be an array of strings');
-    }
-
-    // Save to database
-    const summary = await prisma.summary.create({
-      data: {
-        resourceId,
-        outline: parsed, // Store the entire parsed object as JSON
-        generatedAt: new Date()
-      },
-    });
-
-    console.log(`✅ Summary created successfully (ID: ${summary.id})`);
-
-    return {
-      summaryId: summary.id,
-      outline: parsed.outline,
-      tl_dr: parsed.tl_dr,
-      sections: parsed.sections,
-    };
+    const { content, style } = context;
+    const prompt = await getSummaryPrompt(content, style);
+   try {
+  const result = await textSummarizeAgent.generate([
+    { role: "user", content: prompt }
+  ])
+  return {
+    summary: result.text.trim(),
+    style
+  };
+} catch (err) {
+  console.error("Summarization failed:", err);
+  return {
+    summary: "The summarization model timed out or failed. Try simplifying the input or using a different style.",
+    style
+  };
+}
   }
 });

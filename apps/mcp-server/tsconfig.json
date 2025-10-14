@@ -11,13 +11,7 @@
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "verbatimModuleSyntax": false,
-    "paths": {
-      "@nosana-agent/db": ["../../packages/db"],
-    }
+    "verbatimModuleSyntax": false
   },
-  "include": ["src"],
-  "references": [
-    { "path": "../../packages/db" },
-  ]
+  "include": ["src", "../api/server.ts"],
 }

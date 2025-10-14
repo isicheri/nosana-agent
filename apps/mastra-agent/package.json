@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@ai-sdk/mistral": "^2.0.17",
+    "@google/generative-ai": "^0.24.1",
     "@mastra/core": "^0.20.1",
     "@mastra/libsql": "^0.15.1",
     "@mastra/loggers": "^0.10.15",

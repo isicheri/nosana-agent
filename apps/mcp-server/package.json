@@ -5,7 +5,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-"dev": "ts-node src/index.ts",
+    "dev": "ts-node src/index.ts",
     "start": "node dist/index.js",
     "build": "tsc "
   },
@@ -14,15 +14,24 @@
   "license": "ISC",
   "packageManager": "pnpm@10.12.4",
   "dependencies": {
+    "@ai-sdk/mistral": "^2.0.17",
+    "@google/generative-ai": "^0.24.1",
     "@mastra/core": "^0.20.1",
     "@mastra/mcp": "^0.13.3",
+    "axios": "^1.12.2",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
-     "@ai-sdk/mistral": "^2.0.17",
-    "zod": "^4.1.11",
-    "@nosana-agent/db": "workspace:*"
+    "express": "^5.1.0",
+    "multer": "^2.0.2",
+    "pdf-parse": "^1.1.1",
+    "zod": "^4.1.11"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/multer": "^2.0.0",
     "@types/node": "^24.7.0",
+    "@types/pdf-parse": "^1.1.5",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"

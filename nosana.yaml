@@ -6,7 +6,7 @@ jobs:
       file: ./apps/mcp-server/Dockerfile
       context: ./apps/mcp-server
     run:
-      command: ["node", "dist/main.js"]
+      command: ["node", "dist/index.js"]
     health:
       http: "http://localhost:3001/health"
     resources:

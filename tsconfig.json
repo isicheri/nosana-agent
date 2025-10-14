@@ -8,9 +8,6 @@
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "baseUrl": ".",
-    "paths": {
-      "@nosana-agent/db": ["packages/db/src"],
-    },
     "module": "commonjs",
     "target": "es2020",
     "ignoreDeprecations": "5.0",

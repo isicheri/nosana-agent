@@ -2,6 +2,7 @@ import { MCPServer } from "@mastra/mcp";
 import { config } from 'dotenv';
 import { summarizeContentTool, generateFlashcardsTool,chatWithResourceTool } from "./tools";
 import { textSummarizeAgent } from "./agents/textSummarizeAgent";
+import { flashcardAgent } from "./agents/flashcardAgent";
 config();
 
 
@@ -15,7 +16,8 @@ const mcpServer = new MCPServer({
     chatWithResourceTool
     },
     agents: {
-      textSummarizeAgent
+      textSummarizeAgent,
+      flashcardAgent
     }
 })
 
@@ -72,7 +74,9 @@ export async function startHttpServer(port: number = 4111) {
     console.log(`🚀 MCP server running on ${baseUrl}/mcp`);
     console.log(`📊 Health check available at ${baseUrl}/health`);
     console.log(`🔧 Available tools: summarizeContentTool`);
+    console.log(`🔧 Available tools: chatWithResourceTool`);
     console.log(`🤖 Available agents: textSummarizeAgent`);
+    console.log(`🤖 Available agents: flashCardAgent`);
   });
 
   // Graceful shutdown

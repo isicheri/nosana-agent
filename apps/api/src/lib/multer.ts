@@ -4,7 +4,7 @@ import path from 'path';
 // Set up storage
 const storage = multer.diskStorage({
   destination: function (_req, _file, cb) {
-    cb(null, path.join(process.cwd() , "pdfs"));
+    cb(null, path.join(process.cwd() , "src/server/pdfs"));
   },
   filename: function (_req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);

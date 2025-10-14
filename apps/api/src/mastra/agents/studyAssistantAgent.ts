@@ -1,6 +1,6 @@
 import { Agent } from '@mastra/core/agent';
 import { Memory } from '@mastra/memory';
-import { mcpClient } from '../mcp/mcp-client.js';
+import { mcpClient } from '../mcp/mcp';
 import { mistral } from "@ai-sdk/mistral";
 
 const memory = new Memory({
@@ -31,19 +31,18 @@ const memory = new Memory({
   },
 });
 
-let tools: any;
-try {
-  tools = await mcpClient.getTools();
-} catch (e) {
-  console.warn("⚠️ MCP tools not available. Running in test mode.");
+export async function getToolsSafely() {
+    return await mcpClient.getTools();
 }
 
+
 export const studyAssistantAgent = new Agent({
+ id: "studyAssistantAgent",
   name: 'Study Assistant Agent',
   description:
     'A personal AI tutor that summarizes, explains, and creates flashcards using MCP tools and persistent memory.',
   model: mistral("ministral-3b-latest"),
-  tools,
+  tools: getToolsSafely,
   memory,
   instructions: `
 You are a friendly and intelligent AI study assistant.
