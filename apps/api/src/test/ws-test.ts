@@ -34,10 +34,29 @@ function connect() {
         case 'summarize:error':
           console.error('❌ Summarization error:', msg.data.error);
           break;
+        case 'chat:start':
+          console.log('💬 Chat started');
+          break;
+        case 'chat:done':
+          console.log('💬 Chat reply:', msg.data.result);
+          break;
+        case 'chat:error':
+          console.error('❌ Chat error:', msg.data.error);
+          break;
+        case 'flashcards:start':
+          console.log('🃏 Flashcards generation started');
+          break;
+        case 'flashcards:done':
+          console.log('🃏 Flashcards:', msg.data.result);
+          break;
+        case 'flashcards:error':
+          console.error('❌ Flashcards error:', msg.data.error);
+          break;
         default:
-          // You can ignore unknown events or log them during development
           console.warn('⚠️ Unknown event:', msg.event);
       }
+
+
     } catch (err) {
       console.error('💥 Invalid message received:', data);
     }

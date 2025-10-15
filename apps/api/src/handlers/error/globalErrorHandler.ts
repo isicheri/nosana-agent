@@ -17,6 +17,9 @@ export function globalErrorHandler(
   }
   // For unexpected errors
   res.status(500).json({
-    error: "Something went wrong. Please try again later.",
+    error:
+      process.env.NODE_ENV !== 'production' && err?.message
+        ? err.message
+        : "Something went wrong. Please try again later.",
   });
 }

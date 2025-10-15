@@ -149,7 +149,12 @@ app.post("/api/chat", async (req, res) => {
   try {
     const agent = mastra.getAgent("studyAssistantAgent");
     const result = await agent.generate([
-      { role: "user", content: message }
+      {
+        role: "system",
+        content:
+          "Answer the user's query directly. Provide content-only examples relevant to the user's topic. Do NOT mention, list, or demonstrate any tools or how to use them. Avoid meta responses about capabilities. Keep answers concise,detailed and useful.",
+      },
+      { role: "user", content: message },
     ]);
 
     const replyText = (result as any)?.text ?? "";
